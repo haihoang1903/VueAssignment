@@ -62,7 +62,7 @@ Please build a simple web-based CLI interface that allows users to enter command
 
 Please describe your design, your thought process, and your implementations, also discuss any challenges or interesting points (related to your project and/or Redis) along the way.
 
-### **Please submit:**
+### ** submit:**
 
 - (important) A short writeup describing your submission
 - The project source code on Github
