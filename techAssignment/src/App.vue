@@ -1,5 +1,6 @@
 <script>
 import InputCommand from "./components/InputCommand.vue";
+import CommandHistory from "./components/CommandHistory.vue";
 
 export default {
   name: "App",
@@ -68,6 +69,7 @@ export default {
   },
   components: {
     InputCommand,
+    CommandHistory,
   },
 };
 </script>
@@ -76,13 +78,12 @@ export default {
   <div class="page">
     <div>
       <div>
-        <div
-          v-for="values in arrayValues"
-          :key="values.count"
-          style="margin: 17px 0px"
-        >
-          <div>{{ values.commandHistory }}</div>
-          <div>{{ values.message }}</div>
+        <div>
+          <CommandHistory
+            v-for="values in arrayValues"
+            :key="values.count"
+            v-bind:commandValue="values"
+          />
         </div>
       </div>
       <InputCommand
