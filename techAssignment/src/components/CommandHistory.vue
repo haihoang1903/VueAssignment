@@ -22,5 +22,7 @@ export default {
 <style>
 .space {
   padding: 10px;
+  background-color: #d3d3d3;
+  margin-right: 60px;
 }
 </style>

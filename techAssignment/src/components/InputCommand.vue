@@ -42,7 +42,7 @@ export default {
 <template>
   <form style="display: flex" v-on:submit="renderInput">
     <input class="input" type="text" v-model="valueCommandInput" />
-    <button class="button" type="submit">Submit</button>
+    <button class="button" type="submit">Enter</button>
   </form>
 </template>
 
@@ -64,7 +64,6 @@ export default {
   width: 100%;
   padding: 20px 20px;
   border: 1px solid rgb(0, 0, 0);
-  border-radius: 4px;
   background-color: rgb(0, 0, 0);
   color: white;
 }

@@ -104,26 +104,4 @@ export default {
   height: 100%;
   border: 2px solid #81818375;
 }
-
-.button {
-  background-color: white;
-  color: black;
-  border: 2px solid #555555;
-  border-radius: 5px;
-  margin-left: 5px;
-}
-
-.button:hover {
-  background-color: #555555;
-  color: white;
-}
-
-.input[type="text"] {
-  width: 100%;
-  padding: 20px 20px;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 4px;
-  background-color: rgb(0, 0, 0);
-  color: white;
-}
 </style>
