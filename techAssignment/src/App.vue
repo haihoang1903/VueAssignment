@@ -1,4 +1,6 @@
 <script>
+import InputCommand from "./components/InputCommand.vue";
+
 export default {
   name: "App",
 
@@ -10,10 +12,11 @@ export default {
       keyValue: {},
     };
   },
+
   methods: {
-    renderInput(e) {
-      e.preventDefault();
+    renderInput() {
       var commandInputArray = this.commandInput.split(" ");
+
       switch (commandInputArray[0]) {
         case "SET":
           // Input must contain 3 words
@@ -59,6 +62,12 @@ export default {
       values.count = this.arrayValues.length + 1;
       this.arrayValues.push(values);
     },
+    setCommandInput(saveInput) {
+      this.commandInput = saveInput;
+    },
+  },
+  components: {
+    InputCommand,
   },
 };
 </script>
@@ -76,13 +85,11 @@ export default {
           <div>{{ values.message }}</div>
         </div>
       </div>
-
-      <div>
-        <form style="display: flex" v-on:submit="renderInput">
-          <input class="input" type="text" v-model="commandInput" />
-          <button class="button" type="submit">Submit</button>
-        </form>
-      </div>
+      <InputCommand
+        v-bind:propCommandInput="commandInput"
+        v-bind:propSetCommandInput="setCommandInput"
+        v-bind:renderCommand="renderInput"
+      />
     </div>
   </div>
 </template>
