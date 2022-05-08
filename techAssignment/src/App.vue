@@ -1,78 +1,107 @@
 <script>
+import InputCommand from "./components/InputCommand.vue";
+import CommandHistory from "./components/CommandHistory.vue";
+
 export default {
+  name: "App",
+
   data() {
     return {
-      count: 0,
+      commandInput: "",
+      commandInputArray: [],
+      arrayValues: [],
+      keyValue: {},
     };
+  },
+
+  methods: {
+    renderInput() {
+      var commandInputArray = this.commandInput.split(" ");
+
+      switch (commandInputArray[0]) {
+        case "SET":
+          // Input must contain 3 words
+          if (commandInputArray.length != 3) {
+            this.data("ERROR");
+          } else {
+            // store key and value to array
+            this.setKey(commandInputArray[1], commandInputArray[2]);
+          }
+          break;
+        case "GET":
+          // Input only function and key to get value
+          if (commandInputArray.length != 2) {
+            this.loadArrayValues("ERROR");
+          } else {
+            if (
+              // Key must be existed in array
+              typeof this.keyValue[commandInputArray[1]] == "string"
+            ) {
+              this.getKey(commandInputArray[1]);
+            } else {
+              this.loadArrayValues("ERROR");
+            }
+          }
+          break;
+        default:
+          this.loadArrayValues("ERROR");
+          break;
+      }
+    },
+    setKey(key, itemValue) {
+      this.keyValue[key] = itemValue;
+      this.loadArrayValues("SUCCESSFULLY");
+    },
+    getKey(key) {
+      let item = this.keyValue[key];
+      this.loadArrayValues(item);
+    },
+    loadArrayValues(text) {
+      let values = {};
+      values.commandHistory = this.commandInput;
+      values.message = text;
+      values.count = this.arrayValues.length + 1;
+      this.arrayValues.push(values);
+    },
+    setCommandInput(saveInput) {
+      this.commandInput = saveInput;
+    },
+  },
+  components: {
+    InputCommand,
+    CommandHistory,
   },
 };
 </script>
 
 <template>
-  <div id="app">
-    <button @click="count++">Count is: {{ count }}</button>
+  <div class="page">
+    <div>
+      <div>
+        <div>
+          <CommandHistory
+            v-for="values in arrayValues"
+            :key="values.count"
+            v-bind:commandValue="values"
+          />
+        </div>
+      </div>
+      <InputCommand
+        v-bind:propCommandInput="commandInput"
+        v-bind:propSetCommandInput="setCommandInput"
+        v-bind:renderCommand="renderInput"
+      />
+    </div>
   </div>
 </template>
 
 <style>
-@import "./assets/base.css";
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.page {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin: 20px;
+  height: 100%;
+  border: 2px solid #81818375;
 }
 </style>
